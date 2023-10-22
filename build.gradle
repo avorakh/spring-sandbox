@@ -1,0 +1,71 @@
+plugins {
+    alias libs.plugins.spring.boot apply false
+    alias libs.plugins.dependency.management apply false
+    alias libs.plugins.lombok apply false
+}
+
+group = 'by.avorakh.sandbox'
+
+rootProject.version = '0.1.0'
+
+subprojects {
+
+    apply plugin: 'java-library'
+    apply plugin: 'groovy'
+    apply plugin: 'maven-publish'
+    apply plugin: 'jvm-test-suite'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'io.freefair.lombok'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom libs.jackson.bom.get().toString()
+            mavenBom libs.groovy.bom.get().toString()
+            mavenBom libs.spock.bom.get().toString()
+            mavenBom libs.junit.bom.get().toString()
+        }
+    }
+
+    dependencies {
+        compileOnly libs.jetbrains.annotations
+        testCompileOnly libs.jetbrains.annotations
+    }
+
+    testing {
+        suites {
+            test {
+                dependencies {
+                    implementation libs.spock.core
+                }
+            }
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    lombok {
+        version = "${libs.versions.lombok.get()}"
+    }
+}
