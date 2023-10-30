@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
 plugins {
     alias libs.plugins.spring.boot apply false
     alias libs.plugins.dependency.management apply false
@@ -30,6 +32,7 @@ subprojects {
 
     dependencyManagement {
         imports {
+            mavenBom SpringBootPlugin.BOM_COORDINATES
             mavenBom libs.jackson.bom.get().toString()
             mavenBom libs.groovy.bom.get().toString()
             mavenBom libs.spock.bom.get().toString()

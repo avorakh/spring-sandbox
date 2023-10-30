@@ -1,1 +1,3 @@
 rootProject.name = 'spring-sandbox'
+
+include 'spring-batch'
