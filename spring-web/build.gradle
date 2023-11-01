@@ -1,0 +1,9 @@
+plugins {
+    id 'org.springframework.boot' apply true
+}
+
+project.description= "spring-web"
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}
