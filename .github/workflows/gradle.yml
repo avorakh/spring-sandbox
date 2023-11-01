@@ -47,11 +47,3 @@ jobs:
       uses: gradle/gradle-build-action@v2.9.0
       with:
         arguments: build
-  dependency-review:
-    name: Dependency review
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Checkout Repository'
-        uses: actions/checkout@v4
-      - name: 'Dependency Review'
-        uses: actions/dependency-review-action@v3
