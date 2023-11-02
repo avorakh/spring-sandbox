@@ -1,4 +1,4 @@
-package by.avorakh.sandbox.spring.web.annotation;
+package by.avorakh.sandbox.common.internal.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

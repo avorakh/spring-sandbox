@@ -1,7 +1,6 @@
 package by.avorakh.sandbox.spring.web;
 
-
-import by.avorakh.sandbox.spring.web.annotation.Generated;
+import by.avorakh.sandbox.common.internal.annotation.Generated;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
