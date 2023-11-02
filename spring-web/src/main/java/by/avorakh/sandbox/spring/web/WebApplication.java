@@ -1,17 +1,13 @@
 package by.avorakh.sandbox.spring.web;
 
-
-import java.util.Arrays;
-
-import org.springframework.boot.CommandLineRunner;
+import by.avorakh.sandbox.common.internal.annotation.Generated;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class WebApplication {
 
+    @Generated
     public static void main(String[] args) {
         SpringApplication.run(WebApplication.class, args);
     }
