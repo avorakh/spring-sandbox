@@ -12,6 +12,7 @@ subprojects {
 
     apply plugin: 'java-library'
     apply plugin: 'groovy'
+    apply plugin: 'jacoco'
     apply plugin: 'maven-publish'
     apply plugin: 'jvm-test-suite'
     apply plugin: 'io.spring.dependency-management'
@@ -57,6 +58,11 @@ subprojects {
         testLogging {
             events "passed", "skipped", "failed"
         }
+        finalizedBy jacocoTestReport
+    }
+
+    jacocoTestReport {
+        dependsOn test
     }
 
     configurations {
