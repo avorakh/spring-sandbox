@@ -4,6 +4,14 @@ plugins {
 
 project.description= "spring-web"
 
+dependencyManagement {
+    imports {
+        mavenBom libs.junit.bom.get().toString()
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
