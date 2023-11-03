@@ -44,3 +44,6 @@ jobs:
       with:
         paths: ${{ github.workspace }}/**/build/reports/jacoco/test/jacocoTestReport.xml
         token: ${{ secrets.GITHUB_TOKEN }}
+        update-comment: true
+        title: "JaCoCo coverage report"
+        pass-emoji: ':white_check_mark:'
