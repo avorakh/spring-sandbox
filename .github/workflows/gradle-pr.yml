@@ -5,14 +5,14 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
+name: Java CI with Gradle for PRs
 
 on:
-  push:
-  workflow_dispatch:
+  pull_request:
 
 permissions:
   contents: read
+  pull-requests: write
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
@@ -39,3 +39,12 @@ jobs:
 
       - name: Build with Gradle
         run: gradle build
+
+      - name: Add coverage to PR
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.6.1
+        with:
+          paths: ${{ github.workspace }}/**/build/reports/jacoco/test/jacocoTestReport.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: "JaCoCo coverage report"
+          pass-emoji: ':white_check_mark:'
