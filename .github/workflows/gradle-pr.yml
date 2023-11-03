@@ -23,27 +23,29 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Java JDK
-      uses: actions/setup-java@v3.13.0
-      with:
-        java-version: '17'
-        distribution: 'temurin'
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2.9.0
-      with:
-        gradle-version: 8.4
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3.13.0
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
-    - name: Build with Gradle
-      run: gradle build
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2.9.0
+        with:
+          gradle-version: 8.4
 
-    - name: Add coverage to PR
-      id: jacoco
-      uses: madrapps/jacoco-report@v1.6.1
-      with:
-        paths: ${{ github.workspace }}/**/build/reports/jacoco/test/jacocoTestReport.xml
-        token: ${{ secrets.GITHUB_TOKEN }}
-        update-comment: true
-        title: "JaCoCo coverage report"
-        pass-emoji: ':white_check_mark:'
+      - name: Build with Gradle
+        run: gradle build
+
+      - name: Add coverage to PR
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.6.1
+        with:
+          paths: ${{ github.workspace }}/**/build/reports/jacoco/test/jacocoTestReport.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          update-comment: true
+          title: "JaCoCo coverage report"
+          pass-emoji: ':white_check_mark:'
