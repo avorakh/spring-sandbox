@@ -12,13 +12,7 @@
 name: "CodeQL"
 
 on:
-  push:
-    branches:
-    - 'master'
   pull_request:
-    branches:
-    - 'master'
-    - 'DCP-**'
   workflow_dispatch:
 
 jobs:
