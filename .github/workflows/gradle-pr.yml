@@ -37,6 +37,11 @@ jobs:
         with:
           gradle-version: 8.4
 
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: 'java-kotlin'
+
       - name: Build with Gradle
         run: gradle build
 
@@ -48,3 +53,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: "JaCoCo coverage report"
           pass-emoji: ':white_check_mark:'
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:java-kotlin"
