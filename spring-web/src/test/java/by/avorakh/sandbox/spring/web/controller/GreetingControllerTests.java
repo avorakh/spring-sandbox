@@ -33,10 +33,10 @@ public class GreetingControllerTests {
     public void paramGreetingShouldReturnTailoredMessage() throws Exception {
 
         this.mockMvc
-                .perform(get("/greeting").param("name", "Some name"))
+                .perform(get("/greeting").param("name", "SomeName"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber())
-                .andExpect(jsonPath("$.content").value("Hello, Some name!"));
+                .andExpect(jsonPath("$.content").value("Hello, SomeName!"));
     }
 }
