@@ -1,25 +1,26 @@
 package by.avorakh.sandbox.spring.data.jpa;
 
+import by.avorakh.sandbox.common.internal.annotation.Generated;
 import by.avorakh.sandbox.spring.data.jpa.entity.Customer;
 import by.avorakh.sandbox.spring.data.jpa.repository.CustomerRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+@Slf4j
 @SpringBootApplication
-public class AccessingDataJpaApplication {
+public class JpaApplication {
 
-    private static final Logger log = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
-
+    @Generated
     public static void main(String[] args) {
-        SpringApplication.run(AccessingDataJpaApplication.class);
+        SpringApplication.run(JpaApplication.class);
     }
 
     @Bean
-    public CommandLineRunner demo(CustomerRepository repository) {
+    public @NotNull CommandLineRunner demo(@NotNull CustomerRepository repository) {
         return (args) -> {
             // save a few customers
             repository.save(new Customer("Jack", "Bauer"));
@@ -49,9 +50,6 @@ public class AccessingDataJpaApplication {
             repository.findByLastName("Bauer").forEach(bauer -> {
                 log.info(bauer.toString());
             });
-            // for (Customer bauer : repository.findByLastName("Bauer")) {
-            // 	log.info(bauer.toString());
-            // }
             log.info("");
         };
     }
