@@ -13,20 +13,25 @@ dependencyManagement {
 dependencies {
     api project(':common-internal')
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 testing {
     suites {
+        test {
+            testType = TestSuiteType.UNIT_TEST
+            dependencies {
+                implementation 'org.springframework.boot:spring-boot-starter-test'
+            }
+        }
+
         integrationTest(JvmTestSuite) {
+            testType = TestSuiteType.INTEGRATION_TEST
             dependencies {
                 implementation project()
                 implementation 'org.springframework.boot:spring-boot-starter-web'
                 implementation 'org.springframework.boot:spring-boot-starter-test'
                 implementation libs.jetbrains.annotations
             }
-
             targets {
                 all {
                     testTask.configure {
@@ -36,6 +41,31 @@ testing {
             }
         }
     }
+}
+
+jacocoTestReport {
+    dependsOn integrationTest
+}
+
+tasks.register('jacocoIntegrationTestReport', JacocoReport) {
+    group = 'verification'
+
+    executionData(tasks.named("integrationTest").get())
+    sourceSets(sourceSets["integrationTest"])
+
+    reports {
+        xml.required = true
+        html.required = true
+    }
+    dependsOn integrationTest
+
+}
+
+tasks.named('integrationTest') {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    finalizedBy jacocoIntegrationTestReport
 }
 
 tasks.named('check') {
