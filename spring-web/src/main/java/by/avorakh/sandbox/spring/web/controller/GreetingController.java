@@ -1,8 +1,9 @@
 package by.avorakh.sandbox.spring.web.controller;
 
 import by.avorakh.sandbox.spring.web.resource.Greeting;
-import java.util.concurrent.atomic.AtomicLong;
+import by.avorakh.sandbox.spring.web.svc.GreetingService;
 import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class GreetingController {
 
-    private static final String MESSAGE_template = "Hello, %s!";
-
-    @NotNull AtomicLong counter = new AtomicLong();
+    @NotNull GreetingService greetingService;
 
     @GetMapping("/greeting")
     public @NotNull Greeting greeting(@RequestParam(value = "name", defaultValue = "World") @NotNull String name) {
-        return new Greeting(counter.incrementAndGet(), String.format(MESSAGE_template, name));
+        return greetingService.hello(name);
     }
 }
