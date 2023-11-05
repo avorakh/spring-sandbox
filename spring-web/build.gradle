@@ -51,7 +51,7 @@ tasks.register('jacocoIntegrationTestReport', JacocoReport) {
     group = 'verification'
 
     executionData(tasks.named("integrationTest").get())
-    sourceSets(sourceSets["integrationTest"])
+    sourceSets(sourceSets["main"])
 
     reports {
         xml.required = true
