@@ -1,21 +1,22 @@
 package by.avorakh.sandbox.spring.web.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class HelloControllerIntegrationTest {
-    @Autowired
-    private TestRestTemplate template;
+public class HelloControllerIntegrationTest extends SpringIntegrationTest {
 
     @Test
     public void getHello() throws Exception {
         ResponseEntity<String> response = template.getForEntity("/", String.class);
+
+        assertNotNull(response);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+
         assertThat(response.getBody()).isEqualTo("Greetings from Spring Boot!");
     }
 }
