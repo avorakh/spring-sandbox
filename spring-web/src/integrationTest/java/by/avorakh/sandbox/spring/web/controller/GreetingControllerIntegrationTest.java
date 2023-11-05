@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class GreetingControllerIntegrationTest extends SpringIntegrationTest {
+public class GreetingControllerIntegrationTest extends ControllerIntegrationTest {
 
     @Test
     public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
