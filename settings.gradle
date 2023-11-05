@@ -2,3 +2,4 @@ rootProject.name = 'spring-sandbox'
 
 include 'common-internal'
 include 'spring-web'
+include 'spring-data-jpa'
