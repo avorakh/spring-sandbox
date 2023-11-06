@@ -48,9 +48,13 @@ subprojects {
     testing {
         suites {
             test {
+                testType = TestSuiteType.UNIT_TEST
                 dependencies {
                     implementation libs.spock.core
                 }
+            }
+            integrationTest(JvmTestSuite) {
+                testType = TestSuiteType.INTEGRATION_TEST
             }
         }
     }
@@ -63,12 +67,21 @@ subprojects {
         finalizedBy jacocoTestReport
     }
 
+    tasks.named('integrationTest', Test) {
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+        finalizedBy jacocoTestReport
+    }
+
     jacocoTestReport {
+        executionData(test, integrationTest)
         reports {
             xml.required = true
             html.required = true
         }
         dependsOn test
+        dependsOn integrationTest
     }
 
     configurations {

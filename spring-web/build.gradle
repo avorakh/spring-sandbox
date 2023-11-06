@@ -18,14 +18,12 @@ dependencies {
 testing {
     suites {
         test {
-            testType = TestSuiteType.UNIT_TEST
             dependencies {
                 implementation 'org.springframework.boot:spring-boot-starter-test'
             }
         }
 
         integrationTest(JvmTestSuite) {
-            testType = TestSuiteType.INTEGRATION_TEST
             dependencies {
                 implementation project()
                 implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -41,31 +39,6 @@ testing {
             }
         }
     }
-}
-
-jacocoTestReport {
-    dependsOn integrationTest
-}
-
-tasks.register('jacocoIntegrationTestReport', JacocoReport) {
-    group = 'verification'
-
-    executionData(tasks.named("integrationTest").get())
-    sourceSets(sourceSets["main"])
-
-    reports {
-        xml.required = true
-        html.required = true
-    }
-    dependsOn integrationTest
-
-}
-
-tasks.named('integrationTest') {
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
-    finalizedBy jacocoIntegrationTestReport
 }
 
 tasks.named('check') {
