@@ -9,6 +9,21 @@ group = 'by.avorakh.sandbox'
 
 rootProject.version = '0.1.0'
 
+allprojects {
+    apply plugin: 'pmd'
+
+    pmd {
+
+        ignoreFailures = true
+        consoleOutput = true
+        toolVersion = libs.versions.pmd.tool.get()
+        rulesMinimumPriority = 5
+        ruleSetFiles = files("config/pmd/pmd.xml") // The location of the configuration file.
+        ruleSets = []
+    }
+}
+
+
 subprojects {
 
     apply plugin: 'java-library'
