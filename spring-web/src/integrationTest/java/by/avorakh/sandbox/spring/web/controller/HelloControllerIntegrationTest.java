@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 public class HelloControllerIntegrationTest extends ControllerIntegrationTest {
 
     @Test
-    public void getHello() throws Exception {
+    public void shouldSuccessfullyGetHello() throws Exception {
         ResponseEntity<String> response = template.getForEntity("/", String.class);
 
         assertNotNull(response);

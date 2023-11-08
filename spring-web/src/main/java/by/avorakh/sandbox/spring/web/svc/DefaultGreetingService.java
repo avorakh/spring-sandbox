@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class DefaultGreetingService implements GreetingService {
-    private static final String MESSAGE_template = "Hello, %s!";
+    private static final String MESSAGE_TEMPLATE = "Hello, %s!";
 
     @NotNull AtomicLong counter;
 
     @Override
     public @NotNull Greeting hello(@NotNull String name) {
-        return new Greeting(counter.incrementAndGet(), String.format(MESSAGE_template, name));
+        return new Greeting(counter.incrementAndGet(), String.format(MESSAGE_TEMPLATE, name));
     }
 }

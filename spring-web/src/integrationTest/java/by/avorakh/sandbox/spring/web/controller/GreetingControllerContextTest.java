@@ -13,7 +13,7 @@ class GreetingControllerContextTest {
     private GreetingController greetingController;
 
     @Test
-    void contextLoads() throws Exception {
+    void shouldSuccessfullyContextLoads() throws Exception {
         assertNotNull(greetingController);
     }
 }
