@@ -9,13 +9,48 @@
         PMD Basic Configuration
     </description>
 
-    <rule ref="category/java/bestpractices.xml" />
+    <rule ref="category/java/bestpractices.xml" >
+        <exclude name="JUnit5TestShouldBePackagePrivate" />
+        <exclude name="JUnitAssertionsShouldIncludeMessage" />
+        <exclude name="JUnitTestsShouldIncludeAssert" />
+        <exclude name="JUnitTestContainsTooManyAsserts" />
+    </rule>
 
-    <rule ref="category/java/codestyle.xml" />
+    <rule ref="category/java/codestyle.xml">
+        <exclude name="MethodArgumentCouldBeFinal" />
+        <exclude name="AtLeastOneConstructor" />
+        <exclude name="CommentDefaultAccessModifier" />
+        <exclude name="TooManyStaticImports" />
+        <exclude name="LocalVariableCouldBeFinal" />
+    </rule>
+    <rule ref="category/java/codestyle.xml/ShortVariable">
+        <properties>
+            <property name="minimum" value="2" />
+        </properties>
+    </rule>
+    <rule ref="category/java/codestyle.xml/LongVariable">
+        <properties>
+            <property name="minimum" value="30" />
+        </properties>
+    </rule>
 
-    <rule ref="category/java/design.xml" />
 
-    <rule ref="category/java/documentation.xml"/>
+    <rule ref="category/java/design.xml">
+        <exclude name="UseUtilityClass" />
+        <exclude name="LoosePackageCoupling" />
+        <exclude name="LawOfDemeter" />
+    </rule>
+    <rule ref="category/java/design.xml/SignatureDeclareThrowsException">
+        <properties>
+            <property name="IgnoreJUnitCompletely" value="true" />
+        </properties>
+    </rule>
+
+
+    <rule ref="category/java/documentation.xml">
+        <exclude name="CommentRequired" />
+        <exclude name="UncommentedEmptyMethodBody" />
+    </rule>
 
     <rule ref="category/java/multithreading.xml"/>
 
@@ -23,6 +58,8 @@
 
     <rule ref="category/java/security.xml"/>
 
-    <rule ref="category/java/errorprone.xml" />
+    <rule ref="category/java/errorprone.xml">
+        <exclude name="TestClassWithoutTestCases" />
+    </rule>
 
 </ruleset>
