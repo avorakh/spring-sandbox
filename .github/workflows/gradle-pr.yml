@@ -37,11 +37,6 @@ jobs:
         with:
           gradle-version: 8.4
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: 'java-kotlin'
-
       - name: Build with Gradle
         run: gradle build
 
@@ -68,8 +63,3 @@ jobs:
         with:
           script: |
             core.setFailed('Overall coverage is less than 80%!')
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-        with:
-          category: "/language:java-kotlin"
