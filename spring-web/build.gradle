@@ -13,19 +13,23 @@ dependencyManagement {
 dependencies {
     api project(':common-internal')
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 testing {
     suites {
+        test {
+            dependencies {
+                implementation 'org.springframework.boot:spring-boot-starter-test'
+            }
+        }
+
         integrationTest(JvmTestSuite) {
             dependencies {
                 implementation project()
                 implementation 'org.springframework.boot:spring-boot-starter-web'
                 implementation 'org.springframework.boot:spring-boot-starter-test'
+                implementation libs.jetbrains.annotations
             }
-
             targets {
                 all {
                     testTask.configure {
