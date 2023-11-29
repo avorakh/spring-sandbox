@@ -40,6 +40,10 @@ jobs:
       - name: Build with Gradle
         run: gradle build
 
+  coverage-report:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Add coverage report to PR
         id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
@@ -64,6 +68,9 @@ jobs:
           script: |
             core.setFailed('Overall coverage is less than 80%!')
 
+  dependency-review:
+    needs: coverage-report
+    runs-on: ubuntu-latest
+    steps:
       - name: Perform dependency review
         uses: actions/dependency-review-action@v3
-
