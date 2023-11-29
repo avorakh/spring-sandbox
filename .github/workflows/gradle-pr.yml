@@ -5,14 +5,10 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle, JaCoCo report for PRs
+name: Java CI with Gradle, JaCoCo report, Dependency review and Qodana Scan for PRs
 
 on:
   pull_request:
-
-permissions:
-  contents: read
-  pull-requests: write
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
@@ -20,8 +16,11 @@ concurrency:
 
 jobs:
   build:
-    name: Build
+    name: "Build with JaCoCo report"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -63,3 +62,33 @@ jobs:
         with:
           script: |
             core.setFailed('Overall coverage is less than 80%!')
+
+  dependency-review:
+    needs: build
+    name: "Dependency review"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Perform dependency review
+        uses: actions/dependency-review-action@v3
+        with:
+          comment-summary-in-pr: always
+
+  qodana:
+    needs: build
+    name: Qodana
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: 'Qodana Scan'
+        uses: JetBrains/qodana-action@v2023.2
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
